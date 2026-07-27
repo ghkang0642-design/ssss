@@ -2,105 +2,110 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>네온 뱀게임 (Neon Snake Game)</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>3D NEON SNAKE 2088</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Pretendard:wght@400;600;800&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Pretendard:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Pretendard', sans-serif;
-            background-color: #0f172a;
-            color: #f8fafc;
+            background-color: #030712;
+            color: #f3f4f6;
             touch-action: manipulation;
+            overflow-x: hidden;
         }
 
         .pixel-font {
-            font-family: 'Press Start 2P', cursive;
+            font-family: 'Orbitron', sans-serif;
         }
 
-        /* 게임 카세트 및 캔버스 스타일 */
         .arcade-card {
-            background: rgba(30, 41, 59, 0.85);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            box-shadow: 0 0 30px rgba(14, 165, 233, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.1);
         }
 
-        canvas {
-            background-color: #020617;
-            border-radius: 12px;
-            box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.8), 0 0 15px rgba(16, 185, 129, 0.2);
+        #canvasContainer {
+            position: relative;
+            width: 100%;
+            height: 380px;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            box-shadow: inset 0 0 25px rgba(0, 0, 0, 0.8), 0 0 20px rgba(6, 182, 212, 0.25);
         }
 
-        /* 터치 버튼 패드 스타일 */
+        /* D-Pad 터치 버튼 */
         .d-pad-btn {
             background: linear-gradient(145deg, #1e293b, #0f172a);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
             transition: all 0.1s ease;
         }
 
         .d-pad-btn:active {
             transform: scale(0.92);
-            background: #10b981;
-            color: #020617;
-            box-shadow: 0 0 15px rgba(16, 185, 129, 0.6);
+            background: #06b6d4;
+            color: #030712;
+            box-shadow: 0 0 20px rgba(6, 182, 212, 0.8);
         }
 
-        /* 네온 글로우 효과 */
-        .glow-text {
-            text-shadow: 0 0 10px rgba(16, 185, 129, 0.7);
+        .glow-title {
+            text-shadow: 0 0 12px rgba(6, 182, 212, 0.8), 0 0 24px rgba(6, 182, 212, 0.4);
         }
     </style>
 </head>
-<body class="min-h-screen flex flex-col items-center justify-center p-4 select-none">
+<body class="min-h-screen flex flex-col items-center justify-center p-3 select-none">
 
-    <div class="arcade-card w-full max-w-md rounded-2xl p-5 flex flex-col items-center gap-4">
+    <div class="arcade-card w-full max-w-md rounded-2xl p-5 flex flex-col items-center gap-4 my-4">
         
         <!-- 타이틀 -->
         <header class="text-center">
-            <h1 class="pixel-font text-2xl text-emerald-400 glow-text tracking-wider mb-1">SNAKE GAME</h1>
-            <p class="text-xs text-slate-400">방향키나 화면 버튼으로 뱀을 조작하세요!</p>
+            <h1 class="pixel-font text-2xl font-black text-cyan-400 glow-title tracking-wider mb-1">3D NEON SNAKE</h1>
+            <p class="text-xs text-slate-400">화려한 3D 공간에서 뱀을 조종해보세요!</p>
         </header>
 
         <!-- 점수판 -->
-        <div class="w-full grid grid-cols-2 gap-3 bg-slate-900/80 p-3 rounded-xl border border-slate-700/50">
+        <div class="w-full grid grid-cols-2 gap-3 bg-slate-900/90 p-3 rounded-xl border border-slate-800">
             <div class="flex flex-col items-center">
-                <span class="text-xs text-slate-400 font-semibold mb-1">현재 점수</span>
-                <span id="score" class="pixel-font text-xl text-yellow-400">0</span>
+                <span class="text-xs text-slate-400 font-semibold mb-1">CURRENT SCORE</span>
+                <span id="score" class="pixel-font text-xl text-yellow-400 font-bold">0</span>
             </div>
             <div class="flex flex-col items-center border-l border-slate-800">
-                <span class="text-xs text-slate-400 font-semibold mb-1">최고 기록</span>
-                <span id="highScore" class="pixel-font text-xl text-emerald-400">0</span>
+                <span class="text-xs text-slate-400 font-semibold mb-1">HIGH SCORE</span>
+                <span id="highScore" class="pixel-font text-xl text-cyan-400 font-bold">0</span>
             </div>
         </div>
 
-        <!-- 게임 화면 (Canvas) 및 게임오버 오버레이 -->
-        <div class="relative w-full aspect-square max-w-[360px]">
-            <canvas id="gameCanvas" width="360" height="360" class="w-full h-full"></canvas>
+        <!-- 3D 캔버스 컨테이너 -->
+        <div id="canvasContainer">
+            <!-- Three.js 캔버스가 들어가는 위치 -->
 
-            <div id="gameOverModal" class="absolute inset-0 bg-slate-950/85 backdrop-blur-md rounded-xl flex flex-col items-center justify-center gap-4 hidden">
-                <h2 class="pixel-font text-2xl text-red-500 animate-pulse">GAME OVER</h2>
+            <!-- 게임 오버 모달 -->
+            <div id="gameOverModal" class="absolute inset-0 bg-slate-950/85 backdrop-blur-md flex flex-col items-center justify-center gap-4 hidden z-20">
+                <h2 class="pixel-font text-3xl font-black text-red-500 animate-pulse tracking-widest">GAME OVER</h2>
                 <div class="text-center space-y-1">
-                    <p class="text-slate-300 text-sm">최종 점수: <span id="finalScore" class="font-bold text-yellow-400">0</span></p>
-                    <p id="newRecordMsg" class="text-emerald-400 text-xs font-bold hidden">🎉 최고 기록 달성! 🎉</p>
+                    <p class="text-slate-300 text-sm">최종 점수: <span id="finalScore" class="font-bold text-yellow-400 pixel-font">0</span></p>
+                    <p id="newRecordMsg" class="text-cyan-400 text-xs font-bold hidden">🎉 최고 기록 경신! 🎉</p>
                 </div>
-                <button id="restartBtn" class="px-6 py-2.5 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold rounded-lg shadow-lg shadow-emerald-500/30 transition transform active:scale-95">
-                    다시 시작하기
+                <button id="restartBtn" class="px-6 py-2.5 bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold rounded-xl shadow-lg shadow-cyan-500/30 transition transform active:scale-95 text-sm">
+                    다시 도전하기
                 </button>
             </div>
         </div>
 
-        <!-- 기능 컨트롤 버튼 -->
-        <div class="flex items-center justify-between w-full px-2">
-            <button id="startPauseBtn" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-semibold rounded-lg shadow transition">
+        <!-- 게임 컨트롤 버튼 -->
+        <div class="flex items-center justify-between w-full px-1">
+            <button id="startPauseBtn" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold rounded-lg shadow transition">
                 일시정지
             </button>
             <div class="flex gap-2">
                 <select id="speedSelect" class="bg-slate-800 text-xs text-slate-200 border border-slate-700 rounded-lg px-2 py-1 outline-none">
                     <option value="120">속도: 느림</option>
-                    <option value="80" selected>속도: 보통</option>
-                    <option value="50">속도: 빠름</option>
+                    <option value="85" selected>속도: 보통</option>
+                    <option value="55">속도: 빠름</option>
                 </select>
                 <button id="soundToggleBtn" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs rounded-lg border border-slate-700">
                     🔊 소리 ON
@@ -109,7 +114,7 @@
         </div>
 
         <!-- 모바일 터치 패드 (D-Pad) -->
-        <div class="grid grid-cols-3 gap-2 w-48 h-36 mt-2">
+        <div class="grid grid-cols-3 gap-2 w-48 h-36 mt-1">
             <div></div>
             <button id="btnUp" class="d-pad-btn rounded-t-xl flex items-center justify-center text-xl text-slate-200 font-bold">▲</button>
             <div></div>
@@ -121,18 +126,18 @@
             <div></div>
         </div>
 
-        <!-- Disqus 댓글 섹션 추가 -->
-        <div class="w-full mt-4 pt-4 border-t border-slate-700/50">
-            <h3 class="text-xs font-semibold text-slate-300 mb-3 flex items-center gap-2">
-                💬 랭킹 소감 & 댓글
+        <!-- Disqus 댓글 영역 -->
+        <div class="w-full mt-4 pt-4 border-t border-slate-800">
+            <h3 class="text-xs font-semibold text-slate-400 mb-3 flex items-center gap-2">
+                💬 랭킹 소감 & 소통 공간
             </h3>
-            <div id="disqus_thread" class="bg-slate-900/70 p-3 rounded-xl border border-slate-800 text-sm"></div>
+            <div id="disqus_thread" class="bg-slate-900/80 p-3 rounded-xl border border-slate-800/80 text-sm"></div>
             <script>
-                (function() { // DON'T EDIT BELOW THIS LINE
-                var d = document, s = d.createElement('script');
-                s.src = 'https://aiss-2.disqus.com/embed.js';
-                s.setAttribute('data-timestamp', +new Date());
-                (d.head || d.body).appendChild(s);
+                (function() { 
+                    var d = document, s = d.createElement('script');
+                    s.src = 'https://aiss-2.disqus.com/embed.js';
+                    s.setAttribute('data-timestamp', +new Date());
+                    (d.head || d.body).appendChild(s);
                 })();
             </script>
             <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
@@ -140,9 +145,8 @@
     </div>
 
     <script>
-        // DOM 요소 가져오기
-        const canvas = document.getElementById('gameCanvas');
-        const ctx = canvas.getContext('2d');
+        // DOM 요소
+        const container = document.getElementById('canvasContainer');
         const scoreElement = document.getElementById('score');
         const highScoreElement = document.getElementById('highScore');
         const finalScoreElement = document.getElementById('finalScore');
@@ -153,30 +157,27 @@
         const speedSelect = document.getElementById('speedSelect');
         const soundToggleBtn = document.getElementById('soundToggleBtn');
 
-        // 게임 설정
-        const GRID_SIZE = 18; // 18x18 그리드
-        const TILE_SIZE = canvas.width / GRID_SIZE;
+        // 게임 그리드 설정
+        const GRID_SIZE = 16; 
+        const HALF_GRID = GRID_SIZE / 2;
 
         // 게임 상태 변수
         let snake = [];
-        let food = { x: 0, y: 0 };
-        let dx = 1;
-        let dy = 0;
-        let nextDx = 1;
-        let nextDy = 0;
+        let food = { x: 0, z: 0 };
+        let dx = 1, dz = 0;
+        let nextDx = 1, nextDz = 0;
         let score = 0;
-        let highScore = localStorage.getItem('snake_high_score') || 0;
+        let highScore = localStorage.getItem('snake_3d_high_score') || 0;
         let gameInterval = null;
         let isPaused = false;
         let isGameOver = false;
-        let gameSpeed = 80; // ms
+        let gameSpeed = 85;
         let soundEnabled = true;
 
         highScoreElement.textContent = highScore;
 
-        // Web Audio API 기반 효과음 생성기 (외부 파일 없이 작동)
+        // Web Audio API 효과음
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-
         function playSound(type) {
             if (!soundEnabled) return;
             try {
@@ -184,42 +185,131 @@
                 const gain = audioCtx.createGain();
                 osc.connect(gain);
                 gain.connect(audioCtx.destination);
-
                 const now = audioCtx.currentTime;
 
                 if (type === 'eat') {
                     osc.type = 'sine';
-                    osc.frequency.setValueAtTime(300, now);
-                    osc.frequency.exponentialRampToValueAtTime(600, now + 0.1);
-                    gain.gain.setValueAtTime(0.2, now);
+                    osc.frequency.setValueAtTime(400, now);
+                    osc.frequency.exponentialRampToValueAtTime(800, now + 0.1);
+                    gain.gain.setValueAtTime(0.3, now);
                     gain.gain.exponentialRampToValueAtTime(0.01, now + 0.1);
                     osc.start(now);
                     osc.stop(now + 0.1);
                 } else if (type === 'gameover') {
                     osc.type = 'sawtooth';
-                    osc.frequency.setValueAtTime(200, now);
-                    osc.frequency.exponentialRampToValueAtTime(60, now + 0.4);
-                    gain.gain.setValueAtTime(0.3, now);
+                    osc.frequency.setValueAtTime(250, now);
+                    osc.frequency.exponentialRampToValueAtTime(70, now + 0.4);
+                    gain.gain.setValueAtTime(0.4, now);
                     gain.gain.exponentialRampToValueAtTime(0.01, now + 0.4);
                     osc.start(now);
                     osc.stop(now + 0.4);
                 }
-            } catch (e) {
-                // 오디오 콘텍스트 제약 방어
-            }
+            } catch (e) {}
         }
 
-        // 게임 초기화
+        // --- Three.js 3D 씬 설정 ---
+        let scene, camera, renderer;
+        let snakeMeshes = [];
+        let foodMesh, foodLight;
+
+        function initThree() {
+            // 씬 생성
+            scene = new THREE.Scene();
+            scene.background = new THREE.Color(0x030712);
+            scene.fog = new THREE.FogExp2(0x030712, 0.035);
+
+            // 카메라 설정 (사선 뷰)
+            camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
+            camera.position.set(0, 18, 16);
+            camera.lookAt(0, 0, 1);
+
+            // 렌더러 설정
+            renderer = new THREE.WebGLRenderer({ antialias: true });
+            renderer.setSize(container.clientWidth, container.clientHeight);
+            renderer.shadowMap.enabled = true;
+            renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+            container.appendChild(renderer.domElement);
+
+            // 조명 설정
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+            scene.add(ambientLight);
+
+            const dirLight = new THREE.DirectionalLight(0x38bdf8, 1.2);
+            dirLight.position.set(10, 20, 10);
+            dirLight.castShadow = true;
+            dirLight.shadow.mapSize.width = 1024;
+            dirLight.shadow.mapSize.height = 1024;
+            scene.add(dirLight);
+
+            // 네온 플로어 그리드
+            const gridHelper = new THREE.GridHelper(GRID_SIZE, GRID_SIZE, 0x06b6d4, 0x1e293b);
+            gridHelper.position.y = -0.5;
+            scene.add(gridHelper);
+
+            // 바닥 판 (그림자 받는 곳)
+            const planeGeo = new THREE.PlaneGeometry(GRID_SIZE, GRID_SIZE);
+            const planeMat = new THREE.MeshStandardMaterial({ color: 0x020617, roughness: 0.8 });
+            const plane = new THREE.Mesh(planeGeo, planeMat);
+            plane.rotation.x = -Math.PI / 2;
+            plane.position.y = -0.51;
+            plane.receiveShadow = true;
+            scene.add(plane);
+
+            // 먹이 (반짝이는 구체)
+            const foodGeo = new THREE.SphereGeometry(0.4, 16, 16);
+            const foodMat = new THREE.MeshStandardMaterial({
+                color: 0xff0055,
+                emissive: 0xff0055,
+                emissiveIntensity: 0.8,
+                roughness: 0.2
+            });
+            foodMesh = new THREE.Mesh(foodGeo, foodMat);
+            foodMesh.castShadow = true;
+            scene.add(foodMesh);
+
+            foodLight = new THREE.PointLight(0xff0055, 1.5, 4);
+            scene.add(foodLight);
+
+            // 창 크기 조절 대응
+            window.addEventListener('resize', onWindowResize);
+            
+            // 3D 애니메이션 루프 시작
+            animate();
+        }
+
+        function onWindowResize() {
+            if (!container) return;
+            camera.aspect = container.clientWidth / container.clientHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(container.clientWidth, container.clientHeight);
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            
+            // 먹이 둥둥 뜨는 애니메이션
+            if (foodMesh) {
+                foodMesh.rotation.y += 0.03;
+                foodMesh.position.y = Math.sin(Date.now() * 0.005) * 0.15 + 0.1;
+                if (foodLight) foodLight.position.copy(foodMesh.position);
+            }
+
+            renderer.render(scene, camera);
+        }
+
+        // --- 게임 로직 ---
         function initGame() {
+            // 기존 메쉬 삭제
+            snakeMeshes.forEach(mesh => scene.remove(mesh));
+            snakeMeshes = [];
+
             snake = [
-                { x: 5, y: 10 },
-                { x: 4, y: 10 },
-                { x: 3, y: 10 }
+                { x: 2, z: 0 },
+                { x: 1, z: 0 },
+                { x: 0, z: 0 }
             ];
-            dx = 1;
-            dy = 0;
-            nextDx = 1;
-            nextDy = 0;
+            dx = 1; dz = 0;
+            nextDx = 1; nextDz = 0;
             score = 0;
             isPaused = false;
             isGameOver = false;
@@ -229,148 +319,104 @@
             gameOverModal.classList.add('hidden');
             newRecordMsg.classList.add('hidden');
 
+            // 뱀 3D 메쉬 초기화
+            snake.forEach((segment, index) => {
+                createSnakeSegmentMesh(segment.x, segment.z, index === 0);
+            });
+
             spawnFood();
-            
+
             if (gameInterval) clearInterval(gameInterval);
             gameSpeed = parseInt(speedSelect.value);
             gameInterval = setInterval(gameLoop, gameSpeed);
         }
 
-        // 먹이(사과) 생성
+        function createSnakeSegmentMesh(x, z, isHead) {
+            const geo = new THREE.BoxGeometry(0.85, 0.85, 0.85);
+            const mat = new THREE.MeshStandardMaterial({
+                color: isHead ? 0x38bdf8 : 0x06b6d4,
+                emissive: isHead ? 0x0284c7 : 0x0891b2,
+                emissiveIntensity: isHead ? 0.6 : 0.2,
+                roughness: 0.3
+            });
+            const mesh = new THREE.Mesh(geo, mat);
+            mesh.castShadow = true;
+            mesh.receiveShadow = true;
+            
+            // 좌표 변환 (그리드 중원점 보정)
+            mesh.position.set(x - HALF_GRID + 0.5, 0, z - HALF_GRID + 0.5);
+            scene.add(mesh);
+            snakeMeshes.push(mesh);
+        }
+
         function spawnFood() {
             let valid = false;
             while (!valid) {
                 food.x = Math.floor(Math.random() * GRID_SIZE);
-                food.y = Math.floor(Math.random() * GRID_SIZE);
-                
-                // 뱀의 몸통 위에 생기지 않도록 확인
-                valid = !snake.some(segment => segment.x === food.x && segment.y === food.y);
+                food.z = Math.floor(Math.random() * GRID_SIZE);
+                valid = !snake.some(s => s.x === food.x && s.z === food.z);
             }
+            foodMesh.position.set(food.x - HALF_GRID + 0.5, 0.1, food.z - HALF_GRID + 0.5);
         }
 
-        // 게임 메인 루프
         function gameLoop() {
             if (isPaused || isGameOver) return;
 
-            // 이동 방향 업데이트
             dx = nextDx;
-            dy = nextDy;
+            dz = nextDz;
 
-            // 새로운 머리 위치 계산
-            const head = { x: snake[0].x + dx, y: snake[0].y + dy };
+            const head = { x: snake[0].x + dx, z: snake[0].z + dz };
 
-            // 충돌 체크 (벽 또는 자신의 몸통)
+            // 벽 또는 몸통 충돌 검사
             if (
                 head.x < 0 || head.x >= GRID_SIZE ||
-                head.y < 0 || head.y >= GRID_SIZE ||
-                snake.some(segment => segment.x === head.x && segment.y === head.y)
+                head.z < 0 || head.z >= GRID_SIZE ||
+                snake.some(s => s.x === head.x && s.z === head.z)
             ) {
                 handleGameOver();
                 return;
             }
 
-            // 뱀 머리 추가
             snake.unshift(head);
 
-            // 사과를 먹었는지 확인
-            if (head.x === food.x && head.y === food.y) {
+            // 먹이 획득 여부
+            if (head.x === food.x && head.z === food.z) {
                 score += 10;
                 scoreElement.textContent = score;
                 playSound('eat');
+                
+                // 머리 뒤에 세그먼트 생성
+                createSnakeSegmentMesh(head.x, head.z, false);
                 spawnFood();
             } else {
-                // 사과를 안 먹었으면 꼬리 잘라내기
                 snake.pop();
             }
 
-            // 화면 그리기
-            draw();
+            // 3D 위치 동기화
+            updateSnakeMeshes();
         }
 
-        // 캔버스 렌더링 함수
-        function draw() {
-            // 배경 지우기
-            ctx.fillStyle = '#020617';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-            // 은은한 그리드 라인 그리기
-            ctx.strokeStyle = '#0f172a';
-            ctx.lineWidth = 1;
-            for (let i = 0; i <= GRID_SIZE; i++) {
-                ctx.beginPath();
-                ctx.moveTo(i * TILE_SIZE, 0);
-                ctx.lineTo(i * TILE_SIZE, canvas.height);
-                ctx.stroke();
-
-                ctx.beginPath();
-                ctx.moveTo(0, i * TILE_SIZE);
-                ctx.lineTo(canvas.width, i * TILE_SIZE);
-                ctx.stroke();
+        function updateSnakeMeshes() {
+            // 뱀 길이 변화에 대응해 메쉬 수 맞춤
+            while (snakeMeshes.length < snake.length) {
+                createSnakeSegmentMesh(0, 0, false);
             }
 
-            // 사과(먹이) 그리기 - 반짝이는 네온 레드
-            const foodX = food.x * TILE_SIZE + TILE_SIZE / 2;
-            const foodY = food.y * TILE_SIZE + TILE_SIZE / 2;
-            
-            ctx.shadowBlur = 12;
-            ctx.shadowColor = '#ef4444';
-            ctx.fillStyle = '#ef4444';
-            ctx.beginPath();
-            ctx.arc(foodX, foodY, TILE_SIZE / 2 - 2, 0, Math.PI * 2);
-            ctx.fill();
-            
-            // 사과 잎사귀 포인트
-            ctx.shadowBlur = 0;
-            ctx.fillStyle = '#22c55e';
-            ctx.beginPath();
-            ctx.arc(foodX + 2, foodY - TILE_SIZE / 3, 2, 0, Math.PI * 2);
-            ctx.fill();
-
-            // 뱀 그리기
-            snake.forEach((segment, index) => {
-                const x = segment.x * TILE_SIZE;
-                const y = segment.y * TILE_SIZE;
-                const radius = 6;
-
-                ctx.shadowBlur = index === 0 ? 10 : 0;
-                ctx.shadowColor = '#10b981';
-
-                // 머리는 더 밝은 에메랄드색
-                if (index === 0) {
-                    ctx.fillStyle = '#34d399';
+            snake.forEach((seg, i) => {
+                const mesh = snakeMeshes[i];
+                mesh.position.set(seg.x - HALF_GRID + 0.5, 0, seg.z - HALF_GRID + 0.5);
+                
+                // 머리 및 몸통 색상 지정
+                if (i === 0) {
+                    mesh.material.color.setHex(0x38bdf8);
+                    mesh.material.emissive.setHex(0x0284c7);
                 } else {
-                    ctx.fillStyle = '#10b981';
-                }
-
-                // 둥근 사각형으로 몸통 마감
-                ctx.beginPath();
-                ctx.roundRect(x + 1, y + 1, TILE_SIZE - 2, TILE_SIZE - 2, radius);
-                ctx.fill();
-
-                // 머리에 눈 그리기
-                if (index === 0) {
-                    ctx.fillStyle = '#020617';
-                    ctx.shadowBlur = 0;
-                    
-                    let eyeX1 = x + 5, eyeY1 = y + 5;
-                    let eyeX2 = x + 13, eyeY2 = y + 5;
-
-                    if (dx === 1) { eyeX1 = x + 12; eyeY1 = y + 4; eyeX2 = x + 12; eyeY2 = y + 12; }
-                    else if (dx === -1) { eyeX1 = x + 4; eyeY1 = y + 4; eyeX2 = x + 4; eyeY2 = y + 12; }
-                    else if (dy === 1) { eyeX1 = x + 4; eyeY1 = y + 12; eyeX2 = x + 12; eyeY2 = y + 12; }
-                    else if (dy === -1) { eyeX1 = x + 4; eyeY1 = y + 4; eyeX2 = x + 12; eyeY2 = y + 4; }
-
-                    ctx.beginPath();
-                    ctx.arc(eyeX1, eyeY1, 2, 0, Math.PI * 2);
-                    ctx.arc(eyeX2, eyeY2, 2, 0, Math.PI * 2);
-                    ctx.fill();
+                    mesh.material.color.setHex(0x06b6d4);
+                    mesh.material.emissive.setHex(0x0891b2);
                 }
             });
-            
-            ctx.shadowBlur = 0; // 그림자 초기화
         }
 
-        // 게임 오버 처리
         function handleGameOver() {
             isGameOver = true;
             clearInterval(gameInterval);
@@ -380,7 +426,7 @@
 
             if (score > highScore) {
                 highScore = score;
-                localStorage.setItem('snake_high_score', highScore);
+                localStorage.setItem('snake_3d_high_score', highScore);
                 highScoreElement.textContent = highScore;
                 newRecordMsg.classList.remove('hidden');
             }
@@ -388,48 +434,34 @@
             gameOverModal.classList.remove('hidden');
         }
 
-        // 방향 전환 명령
         function changeDirection(dir) {
-            if (audioCtx.state === 'suspended') {
-                audioCtx.resume();
-            }
+            if (audioCtx.state === 'suspended') audioCtx.resume();
 
             switch(dir) {
-                case 'UP':
-                    if (dy === 0) { nextDx = 0; nextDy = -1; }
-                    break;
-                case 'DOWN':
-                    if (dy === 0) { nextDx = 0; nextDy = 1; }
-                    break;
-                case 'LEFT':
-                    if (dx === 0) { nextDx = -1; nextDy = 0; }
-                    break;
-                case 'RIGHT':
-                    if (dx === 0) { nextDx = 1; nextDy = 0; }
-                    break;
+                case 'UP': if (dz === 0) { nextDx = 0; nextDz = -1; } break;
+                case 'DOWN': if (dz === 0) { nextDx = 0; nextDz = 1; } break;
+                case 'LEFT': if (dx === 0) { nextDx = -1; nextDz = 0; } break;
+                case 'RIGHT': if (dx === 0) { nextDx = 1; nextDz = 0; } break;
             }
         }
 
-        // 키보드 조작 이벤트
+        // 키보드 조작
         window.addEventListener('keydown', (e) => {
             switch (e.key) {
                 case 'ArrowUp': case 'w': case 'W': changeDirection('UP'); break;
                 case 'ArrowDown': case 's': case 'S': changeDirection('DOWN'); break;
                 case 'ArrowLeft': case 'a': case 'A': changeDirection('LEFT'); break;
                 case 'ArrowRight': case 'd': case 'D': changeDirection('RIGHT'); break;
-                case ' ':
-                    togglePause();
-                    break;
+                case ' ': togglePause(); break;
             }
         });
 
-        // 모바일 D-Pad 버튼 조작 이벤트
+        // 모바일 D-Pad 조작
         document.getElementById('btnUp').addEventListener('click', () => changeDirection('UP'));
         document.getElementById('btnDown').addEventListener('click', () => changeDirection('DOWN'));
         document.getElementById('btnLeft').addEventListener('click', () => changeDirection('LEFT'));
         document.getElementById('btnRight').addEventListener('click', () => changeDirection('RIGHT'));
 
-        // 일시정지 토글
         function togglePause() {
             if (isGameOver) return;
             isPaused = !isPaused;
@@ -439,21 +471,18 @@
         startPauseBtn.addEventListener('click', togglePause);
         restartBtn.addEventListener('click', initGame);
 
-        // 속도 변경 처리
         speedSelect.addEventListener('change', () => {
-            if (!isGameOver) {
-                initGame();
-            }
+            if (!isGameOver) initGame();
         });
 
-        // 사운드 토글
         soundToggleBtn.addEventListener('click', () => {
             soundEnabled = !soundEnabled;
             soundToggleBtn.textContent = soundEnabled ? '🔊 소리 ON' : '🔇 소리 OFF';
         });
 
-        // 게임 시작
+        // 시작 초기화
         window.onload = () => {
+            initThree();
             initGame();
         };
     </script>

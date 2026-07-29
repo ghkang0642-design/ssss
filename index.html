@@ -1,7 +1,16 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <!-- Google tag (gtag.js) -->
+    <!-- 1. Microsoft Clarity -->
+    <script type="text/javascript">
+        (function(c,l,a,r,i,t,y){
+            c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+            t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+            y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+        })(window, document, "clarity", "script", "xtsc45zmbp");
+    </script>
+    
+    <!-- 2. Google Analytics (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-0ZM99FQ3JJ"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -10,53 +19,44 @@
 
       gtag('config', 'G-0ZM99FQ3JJ');
     </script>
-    <!-- Microsoft Clarity -->
-    <script type="text/javascript">
-        (function(c,l,a,r,i,t,y){
-            c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-            t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-            y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-        })(window, document, "clarity", "script", "xtsc45zmbp");
-    </script>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI 강아지 vs 고양이 판별기 | Teachable Machine</title>
+    <title>AI 강아지 vs 고양이 판별기 | Teachable Machine 인공지능 테스트</title>
+    <meta name="description" content="구글 Teachable Machine AI 모델을 활용한 강아지 vs 고양이 정밀 분석기! 사진 업로드 및 실시간 웹캠으로 반려동물의 종류를 높은 정확도로 판별합니다.">
+    <meta name="keywords" content="AI 판별기, 강아지 고양이 구분, Teachable Machine, 인공지능 테스트, 반려동물 AI">
+
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- TensorFlow.js & Teachable Machine Image Library (티처블 머신 공식 호환 버전에 맞춤) -->
+    <!-- TensorFlow.js & Teachable Machine Image Library -->
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8.3/dist/teachablemachine-image.min.js"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;600;700;900&family=Fredoka:wght@600;700&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;600;700;800;900&family=Fredoka:wght@600;700&display=swap" rel="stylesheet">
+
     <style>
         body {
-            font-family: 'Pretendard', sans-serif;
-            background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 50%, #e2e8f0 100%);
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+            background: radial-gradient(circle at 50% 0%, #f8fafc 0%, #edf2f7 50%, #e2e8f0 100%);
             color: #0f172a;
             min-height: 100vh;
         }
 
         .title-font {
-            font-family: 'Fredoka', cursive, 'Pretendard', sans-serif;
+            font-family: 'Fredoka', 'Pretendard', cursive, sans-serif;
         }
 
         .glass-card {
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(16px);
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(20px);
             border: 1px solid rgba(226, 232, 240, 0.9);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.9);
-        }
-
-        .gradient-border {
-            position: relative;
-            background: linear-gradient(135deg, #a855f7, #6366f1, #3b82f6);
-            padding: 2px;
-            border-radius: 1.25rem;
+            box-shadow: 0 20px 40px -15px rgba(15, 23, 42, 0.07), inset 0 1px 0 rgba(255, 255, 255, 0.9);
         }
 
         .gradient-text {
-            background: linear-gradient(135deg, #d946ef, #8b5cf6, #2563eb);
+            background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 50%, #3b82f6 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -64,100 +64,119 @@
         .tab-active {
             background: linear-gradient(135deg, #6366f1, #8b5cf6);
             color: #ffffff;
-            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+            box-shadow: 0 4px 14px rgba(99, 102, 241, 0.35);
         }
 
-        /* 드래그 앤 드롭 하이라이트 */
         .drag-over {
             border-color: #8b5cf6 !important;
             background-color: rgba(139, 92, 246, 0.08) !important;
         }
 
-        /* 로딩 스피너 애니메이션 */
-        @keyframes pulseGlow {
-            0%, 100% { opacity: 0.8; transform: scale(1); }
-            50% { opacity: 1; transform: scale(1.03); }
-        }
-        .pulse-glow {
-            animation: pulseGlow 2s infinite ease-in-out;
+        /* AdSense Placeholder style */
+        .adsense-box {
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            border: 1px dashed #cbd5e1;
         }
     </style>
 </head>
-<body class="flex flex-col items-center justify-between min-h-screen p-3 md:p-6">
+<body class="flex flex-col items-center min-h-screen py-6 px-3 sm:px-6">
 
-    <div class="w-full max-w-xl mx-auto flex flex-col items-center gap-5 my-auto">
-        
-        <!-- 헤더 영역 -->
-        <header class="text-center space-y-2">
-            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-50 border border-indigo-200 text-indigo-700 text-xs font-semibold mb-1">
-                <span>✨ Teachable Machine AI 모델 연동</span>
+    <!-- 메인 컨테이너 -->
+    <div class="w-full max-w-2xl mx-auto space-y-6">
+
+        <!-- 최상단 헤더 & 네비게이션 -->
+        <header class="text-center space-y-3">
+            <div class="flex items-center justify-between text-xs text-slate-500 pb-2 border-b border-slate-200">
+                <span class="flex items-center gap-1.5 font-medium"><i class="fas fa-brain text-indigo-500"></i> Teachable Machine 2.0</span>
+                <button id="openPrivacyBtn" class="hover:text-indigo-600 transition flex items-center gap-1 underline cursor-pointer">
+                    <i class="fas fa-shield-alt"></i> 개인정보처리방침
+                </button>
             </div>
-            <h1 class="title-font text-3xl sm:text-4xl font-extrabold tracking-wide gradient-text">
+
+            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-50 border border-indigo-200 text-indigo-700 text-xs font-bold tracking-wide">
+                <span>✨ 딥러닝 비전 AI 알고리즘 적용</span>
+            </div>
+            
+            <h1 class="title-font text-3xl sm:text-5xl font-extrabold tracking-tight gradient-text">
                 🐶 강아지 vs 고양이 🐱
             </h1>
-            <p class="text-xs sm:text-sm text-slate-600">
-                인공지능이 사진 속 귀여운 동물이 강아지인지 고양이인지 판별해 드립니다!
+            <p class="text-xs sm:text-sm text-slate-600 max-w-md mx-auto leading-relaxed">
+                인공지능이 이미지의 고유 시각적 특성을 학습하여 실시간으로 강아지와 고양이를 명확하게 구분합니다.
             </p>
         </header>
 
-        <!-- 메인 카드 -->
-        <main class="glass-card w-full rounded-2xl p-4 sm:p-6 shadow-2xl space-y-5">
+        <!-- [구글 애드센스] 상단 광고 영역 -->
+        <aside class="adsense-box rounded-xl p-3 text-center text-slate-400 text-xs flex flex-col items-center justify-center min-h-[90px] shadow-sm">
+            <!-- 실제 구글 애드센스 승인 후 ins 태그로 교체 가능 -->
+            <ins class="adsbygoogle"
+                 style="display:block; width:100%;"
+                 data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+                 data-ad-slot="1234567890"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <span class="text-[11px] text-slate-400 font-medium"><i class="fas fa-ad text-slate-400 mr-1"></i>광고 스페이스 (Google AdSense Area)</span>
+        </aside>
+
+        <!-- 메인 AI 카드 -->
+        <main class="glass-card rounded-2xl p-5 sm:p-7 shadow-2xl space-y-6">
             
-            <!-- AI 모델 상태 및 URL 수정 바 -->
-            <div id="modelStatus" class="flex flex-col gap-2 px-4 py-3 bg-slate-50/90 rounded-xl border border-slate-200 text-xs">
+            <!-- AI 모델 상태 및 URL 설정 Bar -->
+            <div id="modelStatus" class="flex flex-col gap-2 px-4 py-3 bg-slate-50 rounded-xl border border-slate-200 text-xs">
                 <div class="flex items-center justify-between">
                     <div class="flex items-center gap-2.5">
                         <span id="statusDot" class="w-2.5 h-2.5 rounded-full bg-amber-400 animate-ping"></span>
-                        <span id="statusText" class="text-slate-700 font-medium">AI 모델 로딩 준비 중...</span>
+                        <span id="statusText" class="text-slate-700 font-medium">AI 모델 불러오는 중...</span>
                     </div>
-                    <button id="toggleUrlInputBtn" class="text-[11px] text-indigo-600 hover:underline font-semibold">⚙️ 모델 URL 변경</button>
+                    <button id="toggleUrlInputBtn" class="text-[11px] text-indigo-600 hover:text-indigo-800 font-semibold transition">
+                        <i class="fas fa-cog mr-1"></i>모델 설정
+                    </button>
                 </div>
                 
                 <!-- URL 직접 입력 박스 (기본 숨김) -->
                 <div id="urlInputContainer" class="hidden flex gap-2 pt-2 border-t border-slate-200">
                     <input type="text" id="customUrlInput" value="https://teachablemachine.withgoogle.com/models/3hCqKp5S9/" class="flex-1 bg-white border border-slate-300 rounded-lg px-2.5 py-1.5 text-slate-800 text-xs font-mono focus:outline-none focus:border-indigo-500" placeholder="https://teachablemachine.withgoogle.com/models/...">
-                    <button id="reloadModelBtn" class="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg font-semibold transition">불러오기</button>
+                    <button id="reloadModelBtn" class="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg font-semibold transition text-xs">불러오기</button>
                 </div>
             </div>
 
-            <!-- 탭 메뉴 (사진 업로드 vs 웹캠) -->
-            <div class="grid grid-cols-2 gap-1.5 p-1 bg-slate-100 rounded-xl border border-slate-200 text-xs sm:text-sm font-semibold">
+            <!-- 탭 메뉴 (사진 업로드 vs 실시간 웹캠) -->
+            <div class="grid grid-cols-2 gap-2 p-1.5 bg-slate-100/90 rounded-xl border border-slate-200 text-xs sm:text-sm font-bold">
                 <button id="tabUpload" class="py-2.5 rounded-lg transition-all duration-200 tab-active flex items-center justify-center gap-2">
-                    📁 사진 업로드
+                    <i class="fas fa-file-image"></i> 사진 업로드
                 </button>
                 <button id="tabWebcam" class="py-2.5 rounded-lg transition-all duration-200 text-slate-500 hover:text-slate-800 flex items-center justify-center gap-2">
-                    📹 실시간 웹캠
+                    <i class="fas fa-video"></i> 실시간 웹캠
                 </button>
             </div>
 
             <!-- TAB 1: 이미지 업로드 영역 -->
             <section id="sectionUpload" class="space-y-4">
-                <div id="dropZone" class="border-2 border-dashed border-slate-300 hover:border-indigo-500 bg-slate-50/80 rounded-2xl p-6 sm:p-8 flex flex-col items-center justify-center text-center cursor-pointer transition-all duration-200 min-h-[220px] relative overflow-hidden group">
+                <div id="dropZone" class="border-2 border-dashed border-slate-300 hover:border-indigo-500 bg-slate-50/80 rounded-2xl p-6 sm:p-8 flex flex-col items-center justify-center text-center cursor-pointer transition-all duration-200 min-h-[220px] relative group">
                     <input type="file" id="fileInput" accept="image/*" class="hidden">
                     
-                    <!-- 업로드 전 표시 내용 -->
+                    <!-- 업로드 안내 -->
                     <div id="uploadPrompt" class="space-y-3 flex flex-col items-center">
                         <div class="w-14 h-14 rounded-full bg-indigo-50 border border-indigo-200 flex items-center justify-center text-indigo-600 text-2xl group-hover:scale-110 transition-transform">
-                            📷
+                            <i class="fas fa-cloud-upload-alt"></i>
                         </div>
                         <div>
-                            <p class="text-sm font-semibold text-slate-800">사진을 클릭하거나 이곳에 드래그하세요</p>
-                            <p class="text-xs text-slate-500 mt-1">JPG, PNG, WEBP 지원 (스마트폰 카메라 촬영 가능)</p>
+                            <p class="text-sm font-bold text-slate-800">사진을 클릭하거나 드래그하여 올려주세요</p>
+                            <p class="text-xs text-slate-500 mt-1">JPG, PNG, WEBP 지원 (모바일 카메라 직접 촬영 가능)</p>
                         </div>
                     </div>
 
                     <!-- 이미지 미리보기 -->
-                    <img id="imagePreview" class="hidden max-h-64 rounded-lg object-contain shadow-md border border-slate-200 my-2" alt="업로드 이미지 미리보기">
+                    <img id="imagePreview" class="hidden max-h-64 rounded-xl object-contain shadow-md border border-slate-200 my-2" alt="업로드 이미지 미리보기">
                 </div>
 
-                <!-- 샘플 빠른 테스트 버튼 -->
+                <!-- 빠른 샘플 테스트 버튼 -->
                 <div class="flex items-center justify-between text-xs px-1">
-                    <span class="text-slate-500 font-medium">빠른 테스트 샘플:</span>
+                    <span class="text-slate-500 font-semibold flex items-center gap-1"><i class="fas fa-bolt text-amber-500"></i> 빠른 샘플 테스트:</span>
                     <div class="flex gap-2">
-                        <button id="sampleDogBtn" class="px-2.5 py-1 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg border border-slate-200 flex items-center gap-1 transition font-medium">
+                        <button id="sampleDogBtn" class="px-3 py-1.5 bg-amber-50 hover:bg-amber-100 text-amber-800 rounded-lg border border-amber-200 flex items-center gap-1.5 transition font-semibold">
                             🐶 강아지 샘플
                         </button>
-                        <button id="sampleCatBtn" class="px-2.5 py-1 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg border border-slate-200 flex items-center gap-1 transition font-medium">
+                        <button id="sampleCatBtn" class="px-3 py-1.5 bg-purple-50 hover:bg-purple-100 text-purple-800 rounded-lg border border-purple-200 flex items-center gap-1.5 transition font-semibold">
                             🐱 고양이 샘플
                         </button>
                     </div>
@@ -166,60 +185,61 @@
 
             <!-- TAB 2: 웹캠 영역 -->
             <section id="sectionWebcam" class="hidden space-y-3">
-                <div class="bg-slate-50/90 rounded-2xl p-3 border border-slate-200 flex flex-col items-center justify-center min-h-[220px]">
+                <div class="bg-slate-50/90 rounded-2xl p-3 border border-slate-200 flex flex-col items-center justify-center min-h-[240px]">
                     <div id="webcamContainer" class="relative rounded-xl overflow-hidden border border-slate-200 shadow-inner flex items-center justify-center min-w-[240px] min-h-[240px] bg-white">
-                        <!-- 웹캠 화면 또는 대기 메시지 -->
                         <div id="webcamPlaceholder" class="text-center p-4 text-slate-500 text-xs">
-                            <p class="mb-2 text-2xl">🎥</p>
-                            <p>아래 버튼을 눌러 웹캠을 켜주세요</p>
+                            <p class="mb-2 text-3xl"><i class="fas fa-camera-retro"></i></p>
+                            <p class="font-medium">아래 버튼을 눌러 웹캠을 켜주세요</p>
                         </div>
                     </div>
                 </div>
 
                 <div class="flex gap-2">
-                    <button id="startWebcamBtn" class="flex-1 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold rounded-xl shadow transition flex items-center justify-center gap-1.5">
-                        ▶️ 웹캠 시작하기
+                    <button id="startWebcamBtn" class="flex-1 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold rounded-xl shadow transition flex items-center justify-center gap-1.5">
+                        <i class="fas fa-play"></i> 웹캠 시작하기
                     </button>
-                    <button id="stopWebcamBtn" class="py-2.5 px-4 bg-slate-200 hover:bg-slate-300 text-slate-700 text-xs font-semibold rounded-xl border border-slate-300 transition hidden">
-                        ⏹️ 중지
+                    <button id="stopWebcamBtn" class="py-2.5 px-4 bg-slate-200 hover:bg-slate-300 text-slate-700 text-xs font-bold rounded-xl border border-slate-300 transition hidden">
+                        <i class="fas fa-stop"></i> 중지
                     </button>
                 </div>
             </section>
 
             <!-- AI 판별 결과 출력 영역 -->
-            <section id="resultSection" class="space-y-3 pt-2 border-t border-slate-200">
+            <section id="resultSection" class="space-y-4 pt-4 border-t border-slate-200">
                 <div class="flex items-center justify-between">
-                    <h3 class="text-xs font-bold text-indigo-600 uppercase tracking-wider flex items-center gap-1.5">
-                        📊 AI 분석 결과
+                    <h3 class="text-xs font-extrabold text-indigo-600 uppercase tracking-wider flex items-center gap-1.5">
+                        <i class="fas fa-chart-pie"></i> AI 분석 결과
                     </h3>
-                    <span id="soundToggleBtn" class="cursor-pointer text-xs text-slate-500 hover:text-slate-800">🔊 소리 ON</span>
+                    <button id="soundToggleBtn" class="text-xs text-slate-500 hover:text-slate-800 transition font-medium flex items-center gap-1">
+                        <i class="fas fa-volume-up text-indigo-500"></i> 소리 ON
+                    </button>
                 </div>
 
                 <!-- 승자 판정 요약 박스 -->
-                <div id="resultCard" class="p-4 rounded-xl bg-slate-50/90 border border-slate-200 text-center flex flex-col items-center gap-1 min-h-[80px] justify-center">
-                    <p class="text-slate-500 text-xs">사진을 올리거나 웹캠을 켜면 AI 분석 결과가 표시됩니다.</p>
+                <div id="resultCard" class="p-4 rounded-xl bg-slate-50 border border-slate-200 text-center flex flex-col items-center gap-1 min-h-[80px] justify-center shadow-inner">
+                    <p class="text-slate-500 text-xs font-medium">사진을 올리거나 웹캠을 실행하면 AI 분석 결과가 출력됩니다.</p>
                 </div>
 
-                <!-- 확률 게이지 바 (강아지 & 고양이) -->
-                <div class="space-y-2.5 pt-1">
+                <!-- 확률 게이지 바 -->
+                <div class="space-y-3 pt-1">
                     <!-- 강아지 게이지 -->
                     <div class="space-y-1">
-                        <div class="flex justify-between text-xs font-semibold">
-                            <span class="text-amber-600 flex items-center gap-1">🐶 강아지 (Dog)</span>
+                        <div class="flex justify-between text-xs font-bold">
+                            <span class="text-amber-600 flex items-center gap-1.5">🐶 강아지 (Dog)</span>
                             <span id="dogPercent" class="text-amber-600 font-mono">0%</span>
                         </div>
-                        <div class="w-full h-3 bg-slate-100 rounded-full overflow-hidden p-0.5 border border-slate-200">
+                        <div class="w-full h-3.5 bg-slate-100 rounded-full overflow-hidden p-0.5 border border-slate-200">
                             <div id="dogBar" class="h-full bg-gradient-to-r from-amber-500 to-yellow-400 rounded-full transition-all duration-300 w-0"></div>
                         </div>
                     </div>
 
                     <!-- 고양이 게이지 -->
                     <div class="space-y-1">
-                        <div class="flex justify-between text-xs font-semibold">
-                            <span class="text-purple-600 flex items-center gap-1">🐱 고양이 (Cat)</span>
+                        <div class="flex justify-between text-xs font-bold">
+                            <span class="text-purple-600 flex items-center gap-1.5">🐱 고양이 (Cat)</span>
                             <span id="catPercent" class="text-purple-600 font-mono">0%</span>
                         </div>
-                        <div class="w-full h-3 bg-slate-100 rounded-full overflow-hidden p-0.5 border border-slate-200">
+                        <div class="w-full h-3.5 bg-slate-100 rounded-full overflow-hidden p-0.5 border border-slate-200">
                             <div id="catBar" class="h-full bg-gradient-to-r from-purple-500 to-indigo-400 rounded-full transition-all duration-300 w-0"></div>
                         </div>
                     </div>
@@ -227,17 +247,178 @@
             </section>
         </main>
 
-        <!-- Disqus 댓글 영역 -->
-        <footer class="glass-card w-full rounded-2xl p-4 sm:p-5 text-sm space-y-3">
-            <h3 class="text-xs font-semibold text-slate-700 flex items-center gap-2">
-                💬 AI 판별 소감 & 사용자 소통
+        <!-- [구글 애드센스] 중간 광고 영역 -->
+        <aside class="adsense-box rounded-xl p-3 text-center text-slate-400 text-xs flex flex-col items-center justify-center min-h-[90px] shadow-sm">
+            <ins class="adsbygoogle"
+                 style="display:block; width:100%;"
+                 data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+                 data-ad-slot="0987654321"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <span class="text-[11px] text-slate-400 font-medium"><i class="fas fa-ad text-slate-400 mr-1"></i>관련 콘텐츠 광고 영역</span>
+        </aside>
+
+        <!-- AI 상식 퀴즈 섹션 (애드센스 정책 준수 / 체류시간 향상) -->
+        <section class="glass-card rounded-2xl p-5 sm:p-6 shadow-xl space-y-4">
+            <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+                <h3 class="text-sm font-bold text-slate-800 flex items-center gap-2">
+                    <i class="fas fa-question-circle text-amber-500"></i> AI & 반려동물 상식 퀴즈
+                </h3>
+                <span class="text-xs text-slate-500">지식을 테스트해보세요!</span>
+            </div>
+
+            <div id="quizContainer" class="space-y-3">
+                <p id="quizQuestion" class="text-xs sm:text-sm font-semibold text-slate-700">Q1. 강아지와 고양이의 눈동자(동공) 차이점에 대한 설명으로 옳은 것은?</p>
+                
+                <div id="quizOptions" class="grid grid-cols-1 gap-2 text-xs">
+                    <button class="quiz-btn w-full p-2.5 text-left rounded-xl bg-slate-50 hover:bg-indigo-50 border border-slate-200 transition font-medium text-slate-700" data-correct="true">
+                        1. 고양이는 빛에 따라 동공이 수직 슬릿(수직 찢어진 모양) 형태로 좁아진다.
+                    </button>
+                    <button class="quiz-btn w-full p-2.5 text-left rounded-xl bg-slate-50 hover:bg-indigo-50 border border-slate-200 transition font-medium text-slate-700" data-correct="false">
+                        2. 강아지는 고양이보다 어둠 속에서 빛을 반사하는 각막 판이 없다.
+                    </button>
+                    <button class="quiz-btn w-full p-2.5 text-left rounded-xl bg-slate-50 hover:bg-indigo-50 border border-slate-200 transition font-medium text-slate-700" data-correct="false">
+                        3. 둘 다 시각적 특성에 차이가 전혀 없다.
+                    </button>
+                </div>
+
+                <div id="quizFeedback" class="hidden p-3 rounded-xl text-xs font-semibold"></div>
+            </div>
+        </section>
+
+        <!-- AI 지식 백과사전 (애드센스 풍부한 콘텐츠 요구사항 충족) -->
+        <section class="glass-card rounded-2xl p-5 sm:p-6 shadow-xl space-y-4">
+            <h3 class="text-sm font-bold text-slate-800 flex items-center gap-2 border-b border-slate-200 pb-3">
+                <i class="fas fa-book-open text-indigo-500"></i> AI 지식 백과사전 & 이용 가이드
             </h3>
-            <div id="disqus_thread" class="bg-slate-50/90 p-3 rounded-xl border border-slate-200 text-sm"></div>
+
+            <div class="space-y-3 text-xs text-slate-600 leading-relaxed">
+                <details class="group bg-slate-50 rounded-xl p-3 border border-slate-200 transition">
+                    <summary class="font-bold text-slate-800 cursor-pointer flex items-center justify-between">
+                        <span>💡 Teachable Machine 이미지 판별 원리</span>
+                        <i class="fas fa-chevron-down text-slate-400 group-open:rotate-180 transition-transform"></i>
+                    </summary>
+                    <p class="mt-2 text-slate-600">
+                        본 판별기는 구글의 Teachable Machine 2.0 라이브러리와 TensorFlow.js를 기반으로 동작합니다. 
+                        수만 장의 강아지와 고양이 이미지 데이터를 컨볼루션 신경망(CNN, Convolutional Neural Network) 알고리즘으로 학습하여 귀, 코, 눈동자 위치, 털 패턴 등 딥러닝 특징점(Feature Map)을 추출하여 판단합니다.
+                    </p>
+                </details>
+
+                <details class="group bg-slate-50 rounded-xl p-3 border border-slate-200 transition">
+                    <summary class="font-bold text-slate-800 cursor-pointer flex items-center justify-between">
+                        <span>🔍 강아지 vs 고양이 AI 인식 핵심 포인트</span>
+                        <i class="fas fa-chevron-down text-slate-400 group-open:rotate-180 transition-transform"></i>
+                    </summary>
+                    <ul class="mt-2 list-disc list-inside space-y-1 text-slate-600">
+                        <li><strong>강아지:</strong> 주둥이(Muzzle)의 돌출 형태, 둥근 동공, 처지거나 넓은 귀 구도</li>
+                        <li><strong>고양이:</strong> 뾰족한 삼각형 귀, 수직 슬릿 동공, 턱선의 각도 및 수염 라인</li>
+                    </ul>
+                </details>
+
+                <details class="group bg-slate-50 rounded-xl p-3 border border-slate-200 transition">
+                    <summary class="font-bold text-slate-800 cursor-pointer flex items-center justify-between">
+                        <span>📸 판별 정확도를 높이는 사진 촬영 팁</span>
+                        <i class="fas fa-chevron-down text-slate-400 group-open:rotate-180 transition-transform"></i>
+                    </summary>
+                    <p class="mt-2 text-slate-600">
+                        1. 동물의 정면 조명이 밝은 사진을 사용해주세요.<br>
+                        2. 배경에 사람이나 다른 물체가 적고 얼굴 위주로 잘린 크롭 사진이 더욱 정확합니다.
+                    </p>
+                </details>
+            </div>
+        </section>
+
+        <!-- Formspree AJAX 피드백 문의 폼 -->
+        <section class="glass-card rounded-2xl p-5 sm:p-6 shadow-xl space-y-4">
+            <h3 class="text-sm font-bold text-slate-800 flex items-center gap-2 border-b border-slate-200 pb-3">
+                <i class="fas fa-paper-plane text-purple-500"></i> 사용자 의견 & 문의하기 (피드백)
+            </h3>
+
+            <form id="feedbackForm" action="https://formspree.io/f/mwvgypka" method="POST" class="space-y-3">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                        <label for="feedbackName" class="block text-xs font-semibold text-slate-700 mb-1">이름 / 닉네임</label>
+                        <input type="text" id="feedbackName" name="name" required class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs text-slate-800 focus:outline-none focus:border-indigo-500" placeholder="홍길동">
+                    </div>
+                    <div>
+                        <label for="feedbackEmail" class="block text-xs font-semibold text-slate-700 mb-1">이메일 주소</label>
+                        <input type="email" id="feedbackEmail" name="email" required class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs text-slate-800 focus:outline-none focus:border-indigo-500" placeholder="user@example.com">
+                    </div>
+                </div>
+
+                <div>
+                    <label for="feedbackMessage" class="block text-xs font-semibold text-slate-700 mb-1">문의 내용 / 의견</label>
+                    <textarea id="feedbackMessage" name="message" rows="3" required class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs text-slate-800 focus:outline-none focus:border-indigo-500 resize-none" placeholder="판별 결과 소감이나 제안 사항을 편하게 적어주세요."></textarea>
+                </div>
+
+                <button type="submit" id="submitFeedbackBtn" class="w-full py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs rounded-xl shadow transition flex items-center justify-center gap-1.5">
+                    <i class="fas fa-paper-plane"></i> 피드백 전송하기
+                </button>
+            </form>
+
+            <div id="formStatus" class="hidden"></div>
+        </section>
+
+        <!-- [구글 애드센스] 하단 광고 영역 -->
+        <aside class="adsense-box rounded-xl p-3 text-center text-slate-400 text-xs flex flex-col items-center justify-center min-h-[90px] shadow-sm">
+            <ins class="adsbygoogle"
+                 style="display:block; width:100%;"
+                 data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+                 data-ad-slot="1122334455"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <span class="text-[11px] text-slate-400 font-medium"><i class="fas fa-ad text-slate-400 mr-1"></i>하단 배너 광고 공간</span>
+        </aside>
+
+        <!-- Disqus 댓글 영역 -->
+        <footer class="glass-card rounded-2xl p-5 sm:p-6 text-sm space-y-3">
+            <h3 class="text-xs font-bold text-slate-700 flex items-center gap-2">
+                <i class="fas fa-comments text-indigo-500"></i> AI 판별 소감 & 커뮤니티
+            </h3>
+            <div id="disqus_thread" class="bg-slate-50/90 p-3 rounded-xl border border-slate-200 text-xs"></div>
+
+            <div class="text-center text-[11px] text-slate-400 pt-4 border-t border-slate-200 space-y-1">
+                <p>© 2026 AI Pet Classifier. All rights reserved.</p>
+                <p>본 서비스는 사용자의 사진을 서버로 수집하거나 저장하지 않으며 브라우저 내에서 안전하게 작동합니다.</p>
+            </div>
         </footer>
     </div>
 
+    <!-- 개인정보처리방침 모달 (AdSense 준수 필수) -->
+    <div id="privacyModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl space-y-4 max-h-[85vh] overflow-y-auto">
+            <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+                <h3 class="text-base font-bold text-slate-800 flex items-center gap-2">
+                    <i class="fas fa-shield-alt text-indigo-600"></i> 개인정보처리방침 (Privacy Policy)
+                </h3>
+                <button id="closePrivacyBtn" class="text-slate-400 hover:text-slate-700 text-lg">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <div class="text-xs text-slate-600 space-y-3 leading-relaxed">
+                <p><strong>1. 개인정보 수집 항목 및 목적</strong><br>
+                본 사이트는 이용자가 업로드하는 사진이나 웹캠 영상 데이터를 서버로 수집, 저장, 전송하지 않습니다. 모든 AI 분석 프로세스는 사용자의 웹 브라우저(Client-side) 내에서만 처리됩니다.</p>
+                
+                <p><strong>2. 쿠키 및 트래킹 기술 (Google Analytics & Microsoft Clarity)</strong><br>
+                사이트 방문자 분석 및 서비스 개선을 위해 Google Analytics (ID: G-0ZM99FQ3JJ) 및 Microsoft Clarity (ID: xtsc45zmbp) 추적 코드만을 사용하며, 익명화된 세션 데이터만 다룹니다.</p>
+
+                <p><strong>3. 구글 애드센스 및 제3자 광고 쿠키</strong><br>
+                구글 등 제3자 제공업체는 사용자의 이전 방문 기록을 바탕으로 맞춤형 광고를 제공하기 위해 쿠키를 사용합니다. 사용자는 구글 광고 설정을 통해 맞춤형 광고를 차단할 수 있습니다.</p>
+
+                <p><strong>4. 문의처</strong><br>
+                서비스 관련 개인정보 보호 문의는 본문의 피드백 폼을 통해 제출해 주시기 바랍니다.</p>
+            </div>
+
+            <button id="confirmPrivacyBtn" class="w-full py-2 bg-indigo-600 text-white rounded-xl text-xs font-bold hover:bg-indigo-500 transition">
+                확인 및 닫기
+            </button>
+        </div>
+    </div>
+
+    <!-- JavaScript 로직 -->
     <script>
-        // Teachable Machine 모델 URL 설정
+        // Teachable Machine 모델 기본 URL
         let MODEL_URL = "https://teachablemachine.withgoogle.com/models/3hCqKp5S9/";
 
         // DOM 요소 가져오기
@@ -267,6 +448,14 @@
         const sampleDogBtn = document.getElementById('sampleDogBtn');
         const sampleCatBtn = document.getElementById('sampleCatBtn');
         const soundToggleBtn = document.getElementById('soundToggleBtn');
+        
+        // 피드백 폼 및 모달 DOM
+        const feedbackForm = document.getElementById('feedbackForm');
+        const formStatus = document.getElementById('formStatus');
+        const privacyModal = document.getElementById('privacyModal');
+        const openPrivacyBtn = document.getElementById('openPrivacyBtn');
+        const closePrivacyBtn = document.getElementById('closePrivacyBtn');
+        const confirmPrivacyBtn = document.getElementById('confirmPrivacyBtn');
 
         // 상태 변수
         let model = null;
@@ -291,7 +480,7 @@
                     osc.type = 'sine';
                     osc.frequency.setValueAtTime(400, now);
                     osc.frequency.exponentialRampToValueAtTime(700, now + 0.15);
-                    gain.gain.setValueAtTime(0.3, now);
+                    gain.gain.setValueAtTime(0.25, now);
                     gain.gain.exponentialRampToValueAtTime(0.01, now + 0.15);
                     osc.start(now);
                     osc.stop(now + 0.15);
@@ -299,7 +488,7 @@
                     osc.type = 'triangle';
                     osc.frequency.setValueAtTime(600, now);
                     osc.frequency.exponentialRampToValueAtTime(350, now + 0.25);
-                    gain.gain.setValueAtTime(0.25, now);
+                    gain.gain.setValueAtTime(0.2, now);
                     gain.gain.exponentialRampToValueAtTime(0.01, now + 0.25);
                     osc.start(now);
                     osc.stop(now + 0.25);
@@ -307,31 +496,29 @@
             } catch (e) {}
         }
 
-        // 모델 불러오기 함수
+        // Teachable Machine 모델 불러오기
         async function loadAIModel(url = MODEL_URL) {
             try {
-                // URL 끝 슬래시 처리
                 if (!url.endsWith('/')) url += '/';
                 MODEL_URL = url;
                 
-                statusText.textContent = "AI 모델을 다운로드하는 중입니다...";
+                statusText.textContent = "AI 모델 다운로드 중...";
                 statusDot.className = "w-2.5 h-2.5 rounded-full bg-amber-400 animate-ping";
 
                 const modelURL = MODEL_URL + "model.json";
                 const metadataURL = MODEL_URL + "metadata.json";
 
-                // 이전 모델 연결 정리
                 model = null;
                 isModelLoaded = false;
 
                 model = await tmImage.load(modelURL, metadataURL);
                 isModelLoaded = true;
 
-                statusText.textContent = "AI 모델 연결 성공 (준비됨)";
+                statusText.textContent = "AI 모델 연결 완료 (정상)";
                 statusDot.className = "w-2.5 h-2.5 rounded-full bg-emerald-500";
             } catch (error) {
                 console.error("모델 로딩 실패:", error);
-                statusText.textContent = "모델 로딩 실패. URL을 확인하거나 직접 변경해보세요.";
+                statusText.textContent = "모델 로딩 실패. URL을 직접 확인해주세요.";
                 statusDot.className = "w-2.5 h-2.5 rounded-full bg-red-500";
                 urlInputContainer.classList.remove('hidden');
             }
@@ -342,18 +529,15 @@
             urlInputContainer.classList.toggle('hidden');
         });
 
-        // URL 수동 입력 로드 버튼
         reloadModelBtn.addEventListener('click', () => {
             const inputUrl = customUrlInput.value.trim();
-            if (inputUrl) {
-                loadAIModel(inputUrl);
-            }
+            if (inputUrl) loadAIModel(inputUrl);
         });
 
-        // 이미지 분류 예측 실행 함수
+        // 이미지 예측 실행
         async function predictImageElement(imgElement) {
             if (!isModelLoaded || !model) {
-                alert("AI 모델이 연결되지 않았습니다. 모델 URL을 확인 후 불러오기를 진행해주세요.");
+                alert("AI 모델 로딩 중입니다. 잠시 후 시도해주세요.");
                 return;
             }
 
@@ -365,7 +549,7 @@
             }
         }
 
-        // 결과 화면 UI 업데이트 함수
+        // AI 결과 업데이트
         function updateResultUI(predictions) {
             let dogProb = 0;
             let catProb = 0;
@@ -379,47 +563,44 @@
                 } else if (className.includes('cat') || className.includes('고양이')) {
                     catProb = percentage;
                 } else {
-                    // 모델의 클래스 인덱스 기본 대응 (0: 강아지, 1: 고양이)
                     if (p.className === predictions[0].className) dogProb = percentage;
                     else catProb = percentage;
                 }
             });
 
-            // UI 게이지 바 업데이트
             dogPercent.textContent = `${dogProb.toFixed(1)}%`;
             dogBar.style.width = `${dogProb}%`;
 
             catPercent.textContent = `${catProb.toFixed(1)}%`;
             catBar.style.width = `${catProb}%`;
 
-            // 승자 판정 코멘트 생성
             if (dogProb > 60) {
                 resultCard.innerHTML = `
                     <div class="text-amber-600 font-bold text-lg flex items-center gap-1.5">
-                        🐶 강아지 (${dogProb.toFixed(0)}%)
+                        🐶 강아지 확신도 (${dogProb.toFixed(0)}%)
                     </div>
-                    <p class="text-xs text-slate-600">귀여운 멍멍이의 매력이 물씬 느껴지네요! 🐾</p>
+                    <p class="text-xs text-slate-600">귀여운 멍멍이의 특성이 명확하게 감지되었습니다! 🐾</p>
                 `;
                 playSound('dog');
             } else if (catProb > 60) {
                 resultCard.innerHTML = `
                     <div class="text-purple-600 font-bold text-lg flex items-center gap-1.5">
-                        🐱 고양이 (${catProb.toFixed(0)}%)
+                        🐱 고양이 확신도 (${catProb.toFixed(0)}%)
                     </div>
-                    <p class="text-xs text-slate-600">도도하고 완벽한 야옹이의 모습입니다! 🐈</p>
+                    <p class="text-xs text-slate-600">매력적인 야옹이의 특성이 확실하게 감지되었습니다! 🐈</p>
                 `;
                 playSound('cat');
             } else {
                 resultCard.innerHTML = `
                     <div class="text-slate-800 font-bold text-sm">
-                        🤔 판별 불명확 (유사 확률)
+                        🤔 판별 유보 (유사 확률)
                     </div>
-                    <p class="text-xs text-slate-500">강아지인지 고양이인지 조금 더 명확한 사진으로 시도해보세요!</p>
+                    <p class="text-xs text-slate-500">조금 더 명확한 특징이 드러난 사진으로 시도해 보세요.</p>
                 `;
             }
         }
 
-        // 드롭존 및 파일 업로드 이벤트
+        // 드롭존 및 이미지 업로드
         dropZone.addEventListener('click', () => fileInput.click());
 
         fileInput.addEventListener('change', (e) => {
@@ -427,7 +608,6 @@
             if (file) handleImageFile(file);
         });
 
-        // 드래그 앤 드롭 지원
         ['dragenter', 'dragover'].forEach(eventName => {
             dropZone.addEventListener(eventName, (e) => {
                 e.preventDefault();
@@ -457,14 +637,12 @@
                 imagePreview.classList.remove('hidden');
                 uploadPrompt.classList.add('hidden');
 
-                imagePreview.onload = () => {
-                    predictImageElement(imagePreview);
-                };
+                imagePreview.onload = () => predictImageElement(imagePreview);
             };
             reader.readAsDataURL(file);
         }
 
-        // 샘플 이미지 테스트 버튼 (SVG Data URI)
+        // 샘플 테스트 SVG 데이터
         const SAMPLE_DOG_SVG = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300' viewBox='0 0 100 100' fill='%23f59e0b'><circle cx='50' cy='50' r='40'/><circle cx='35' cy='45' r='5' fill='%23000'/><circle cx='65' cy='45' r='5' fill='%23000'/><ellipse cx='50' cy='60' rx='8' ry='5' fill='%23000'/><path d='M20 25 Q10 40 25 45 Z' fill='%23d97706'/><path d='M80 25 Q90 40 75 45 Z' fill='%23d97706'/></svg>";
         const SAMPLE_CAT_SVG = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300' viewBox='0 0 100 100' fill='%23a855f7'><circle cx='50' cy='50' r='40'/><polygon points='20,15 35,40 15,35' fill='%237e22ce'/><polygon points='80,15 65,40 85,35' fill='%237e22ce'/><ellipse cx='38' cy='48' rx='4' ry='6' fill='%23000'/><ellipse cx='62' cy='48' rx='4' ry='6' fill='%23000'/><polygon points='50,58 46,55 54,55' fill='%23f472b6'/></svg>";
 
@@ -504,10 +682,10 @@
             sectionUpload.classList.add('hidden');
         });
 
-        // 웹캠 로직
+        // 실시간 웹캠 로직
         startWebcamBtn.addEventListener('click', async () => {
             if (!isModelLoaded) {
-                alert("AI 모델이 아직 연결 중입니다. 잠시만 기다려주세요.");
+                alert("AI 모델을 먼저 불러오는 중입니다.");
                 return;
             }
 
@@ -527,7 +705,7 @@
 
                 window.requestAnimationFrame(webcamLoop);
             } catch (err) {
-                alert("웹캠 권한을 허용해주셔야 이용 가능합니다.");
+                alert("웹캠 권한 허용이 필요합니다.");
                 console.error(err);
             }
         });
@@ -548,8 +726,8 @@
                 stopWebcamBtn.classList.add('hidden');
                 webcamContainer.innerHTML = `
                     <div id="webcamPlaceholder" class="text-center p-4 text-slate-500 text-xs">
-                        <p class="mb-2 text-2xl">🎥</p>
-                        <p>아래 버튼을 눌러 웹캠을 켜주세요</p>
+                        <p class="mb-2 text-3xl"><i class="fas fa-camera-retro"></i></p>
+                        <p class="font-medium">아래 버튼을 눌러 웹캠을 켜주세요</p>
                     </div>
                 `;
             }
@@ -559,10 +737,67 @@
 
         soundToggleBtn.addEventListener('click', () => {
             soundEnabled = !soundEnabled;
-            soundToggleBtn.textContent = soundEnabled ? '🔊 소리 ON' : '🔇 소리 OFF';
+            soundToggleBtn.innerHTML = soundEnabled ? '<i class="fas fa-volume-up text-indigo-500"></i> 소리 ON' : '<i class="fas fa-volume-mute text-slate-400"></i> 소리 OFF';
         });
 
-        // 앱 초기화 및 모델 로딩
+        // Formspree AJAX 피드백 제출 제어
+        feedbackForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const submitBtn = document.getElementById('submitFeedbackBtn');
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 전송 중...';
+
+            try {
+                const formData = new FormData(feedbackForm);
+                const response = await fetch('https://formspree.io/f/mwvgypka', {
+                    method: 'POST',
+                    body: formData,
+                    headers: { 'Accept': 'application/json' }
+                });
+
+                if (response.ok) {
+                    formStatus.className = "mt-3 p-3 bg-emerald-50 text-emerald-700 text-xs font-semibold rounded-xl border border-emerald-200 block";
+                    formStatus.innerHTML = "<i class='fas fa-check-circle mr-1'></i> 성공적으로 메시지가 전송되었습니다. 감사드립니다!";
+                    feedbackForm.reset();
+                } else {
+                    const data = await response.json();
+                    throw new Error(data.error || '전송 중 문제가 발생했습니다.');
+                }
+            } catch (err) {
+                formStatus.className = "mt-3 p-3 bg-rose-50 text-rose-700 text-xs font-semibold rounded-xl border border-rose-200 block";
+                formStatus.innerHTML = "<i class='fas fa-exclamation-circle mr-1'></i> " + (err.message || '전송 실패. 네트워크 상태를 확인해주세요.');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> 피드백 전송하기';
+            }
+        });
+
+        // 퀴즈 클릭 상호작용
+        document.querySelectorAll('.quiz-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const feedback = document.getElementById('quizFeedback');
+                const isCorrect = this.getAttribute('data-correct') === 'true';
+                
+                feedback.classList.remove('hidden');
+                if (isCorrect) {
+                    feedback.className = "p-3 rounded-xl text-xs font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200";
+                    feedback.innerHTML = "🎉 정답입니다! 고양이는 수직 슬릿 동공을 통해 빛의 양을 미세하게 조절할 수 있습니다.";
+                } else {
+                    feedback.className = "p-3 rounded-xl text-xs font-semibold bg-rose-50 text-rose-800 border border-rose-200";
+                    feedback.innerHTML = "❌ 아쉽네요! 다시 도전해보세요. (힌트: 1번 보기)";
+                }
+            });
+        });
+
+        // 개인정보 처리방침 모달 제어
+        openPrivacyBtn.addEventListener('click', () => privacyModal.classList.remove('hidden'));
+        closePrivacyBtn.addEventListener('click', () => privacyModal.classList.add('hidden'));
+        confirmPrivacyBtn.addEventListener('click', () => privacyModal.classList.add('hidden'));
+        privacyModal.addEventListener('click', (e) => {
+            if (e.target === privacyModal) privacyModal.classList.add('hidden');
+        });
+
+        // DOM 로드 완료 시 실행
         window.addEventListener('DOMContentLoaded', () => {
             loadAIModel();
         });

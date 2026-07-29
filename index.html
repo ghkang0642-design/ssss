@@ -1,6 +1,15 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="ko">
 <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-0ZM99FQ3JJ"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-0ZM99FQ3JJ');
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI 강아지 vs 고양이 판별기 | Teachable Machine</title>
@@ -15,8 +24,8 @@
     <style>
         body {
             font-family: 'Pretendard', sans-serif;
-            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #0f172a 100%);
-            color: #f8fafc;
+            background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 50%, #e2e8f0 100%);
+            color: #0f172a;
             min-height: 100vh;
         }
 
@@ -25,10 +34,10 @@
         }
 
         .glass-card {
-            background: rgba(30, 41, 59, 0.75);
+            background: rgba(255, 255, 255, 0.85);
             backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(226, 232, 240, 0.9);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.9);
         }
 
         .gradient-border {
@@ -39,7 +48,7 @@
         }
 
         .gradient-text {
-            background: linear-gradient(135deg, #f472b6, #c084fc, #60a5fa);
+            background: linear-gradient(135deg, #d946ef, #8b5cf6, #2563eb);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -47,13 +56,13 @@
         .tab-active {
             background: linear-gradient(135deg, #6366f1, #8b5cf6);
             color: #ffffff;
-            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
         }
 
         /* 드래그 앤 드롭 하이라이트 */
         .drag-over {
-            border-color: #a855f7 !important;
-            background-color: rgba(168, 85, 247, 0.15) !important;
+            border-color: #8b5cf6 !important;
+            background-color: rgba(139, 92, 246, 0.08) !important;
         }
 
         /* 로딩 스피너 애니메이션 */
@@ -72,13 +81,13 @@
         
         <!-- 헤더 영역 -->
         <header class="text-center space-y-2">
-            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-xs font-semibold mb-1">
+            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-50 border border-indigo-200 text-indigo-700 text-xs font-semibold mb-1">
                 <span>✨ Teachable Machine AI 모델 연동</span>
             </div>
             <h1 class="title-font text-3xl sm:text-4xl font-extrabold tracking-wide gradient-text">
                 🐶 강아지 vs 고양이 🐱
             </h1>
-            <p class="text-xs sm:text-sm text-slate-400">
+            <p class="text-xs sm:text-sm text-slate-600">
                 인공지능이 사진 속 귀여운 동물이 강아지인지 고양이인지 판별해 드립니다!
             </p>
         </header>
@@ -87,60 +96,60 @@
         <main class="glass-card w-full rounded-2xl p-4 sm:p-6 shadow-2xl space-y-5">
             
             <!-- AI 모델 상태 및 URL 수정 바 -->
-            <div id="modelStatus" class="flex flex-col gap-2 px-4 py-3 bg-slate-900/80 rounded-xl border border-slate-800 text-xs">
+            <div id="modelStatus" class="flex flex-col gap-2 px-4 py-3 bg-slate-50/90 rounded-xl border border-slate-200 text-xs">
                 <div class="flex items-center justify-between">
                     <div class="flex items-center gap-2.5">
                         <span id="statusDot" class="w-2.5 h-2.5 rounded-full bg-amber-400 animate-ping"></span>
-                        <span id="statusText" class="text-slate-300 font-medium">AI 모델 로딩 준비 중...</span>
+                        <span id="statusText" class="text-slate-700 font-medium">AI 모델 로딩 준비 중...</span>
                     </div>
-                    <button id="toggleUrlInputBtn" class="text-[11px] text-indigo-400 hover:underline">⚙️ 모델 URL 변경</button>
+                    <button id="toggleUrlInputBtn" class="text-[11px] text-indigo-600 hover:underline font-semibold">⚙️ 모델 URL 변경</button>
                 </div>
                 
                 <!-- URL 직접 입력 박스 (기본 숨김) -->
-                <div id="urlInputContainer" class="hidden flex gap-2 pt-2 border-t border-slate-800">
-                    <input type="text" id="customUrlInput" value="https://teachablemachine.withgoogle.com/models/3hCqKp5S9/" class="flex-1 bg-slate-950 border border-slate-700 rounded-lg px-2.5 py-1.5 text-slate-200 text-xs font-mono focus:outline-none focus:border-indigo-500" placeholder="https://teachablemachine.withgoogle.com/models/...">
+                <div id="urlInputContainer" class="hidden flex gap-2 pt-2 border-t border-slate-200">
+                    <input type="text" id="customUrlInput" value="https://teachablemachine.withgoogle.com/models/3hCqKp5S9/" class="flex-1 bg-white border border-slate-300 rounded-lg px-2.5 py-1.5 text-slate-800 text-xs font-mono focus:outline-none focus:border-indigo-500" placeholder="https://teachablemachine.withgoogle.com/models/...">
                     <button id="reloadModelBtn" class="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg font-semibold transition">불러오기</button>
                 </div>
             </div>
 
             <!-- 탭 메뉴 (사진 업로드 vs 웹캠) -->
-            <div class="grid grid-cols-2 gap-1.5 p-1 bg-slate-900/90 rounded-xl border border-slate-800 text-xs sm:text-sm font-semibold">
+            <div class="grid grid-cols-2 gap-1.5 p-1 bg-slate-100 rounded-xl border border-slate-200 text-xs sm:text-sm font-semibold">
                 <button id="tabUpload" class="py-2.5 rounded-lg transition-all duration-200 tab-active flex items-center justify-center gap-2">
                     📁 사진 업로드
                 </button>
-                <button id="tabWebcam" class="py-2.5 rounded-lg transition-all duration-200 text-slate-400 hover:text-slate-200 flex items-center justify-center gap-2">
+                <button id="tabWebcam" class="py-2.5 rounded-lg transition-all duration-200 text-slate-500 hover:text-slate-800 flex items-center justify-center gap-2">
                     📹 실시간 웹캠
                 </button>
             </div>
 
             <!-- TAB 1: 이미지 업로드 영역 -->
             <section id="sectionUpload" class="space-y-4">
-                <div id="dropZone" class="border-2 border-dashed border-slate-700 hover:border-indigo-500/50 bg-slate-900/50 rounded-2xl p-6 sm:p-8 flex flex-col items-center justify-center text-center cursor-pointer transition-all duration-200 min-h-[220px] relative overflow-hidden group">
+                <div id="dropZone" class="border-2 border-dashed border-slate-300 hover:border-indigo-500 bg-slate-50/80 rounded-2xl p-6 sm:p-8 flex flex-col items-center justify-center text-center cursor-pointer transition-all duration-200 min-h-[220px] relative overflow-hidden group">
                     <input type="file" id="fileInput" accept="image/*" class="hidden">
                     
                     <!-- 업로드 전 표시 내용 -->
                     <div id="uploadPrompt" class="space-y-3 flex flex-col items-center">
-                        <div class="w-14 h-14 rounded-full bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400 text-2xl group-hover:scale-110 transition-transform">
+                        <div class="w-14 h-14 rounded-full bg-indigo-50 border border-indigo-200 flex items-center justify-center text-indigo-600 text-2xl group-hover:scale-110 transition-transform">
                             📷
                         </div>
                         <div>
-                            <p class="text-sm font-semibold text-slate-200">사진을 클릭하거나 이곳에 드래그하세요</p>
-                            <p class="text-xs text-slate-400 mt-1">JPG, PNG, WEBP 지원 (스마트폰 카메라 촬영 가능)</p>
+                            <p class="text-sm font-semibold text-slate-800">사진을 클릭하거나 이곳에 드래그하세요</p>
+                            <p class="text-xs text-slate-500 mt-1">JPG, PNG, WEBP 지원 (스마트폰 카메라 촬영 가능)</p>
                         </div>
                     </div>
 
                     <!-- 이미지 미리보기 -->
-                    <img id="imagePreview" class="hidden max-h-64 rounded-lg object-contain shadow-lg border border-slate-700/50 my-2" alt="업로드 이미지 미리보기">
+                    <img id="imagePreview" class="hidden max-h-64 rounded-lg object-contain shadow-md border border-slate-200 my-2" alt="업로드 이미지 미리보기">
                 </div>
 
                 <!-- 샘플 빠른 테스트 버튼 -->
                 <div class="flex items-center justify-between text-xs px-1">
-                    <span class="text-slate-400 font-medium">빠른 테스트 샘플:</span>
+                    <span class="text-slate-500 font-medium">빠른 테스트 샘플:</span>
                     <div class="flex gap-2">
-                        <button id="sampleDogBtn" class="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg border border-slate-700 flex items-center gap-1 transition">
+                        <button id="sampleDogBtn" class="px-2.5 py-1 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg border border-slate-200 flex items-center gap-1 transition font-medium">
                             🐶 강아지 샘플
                         </button>
-                        <button id="sampleCatBtn" class="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg border border-slate-700 flex items-center gap-1 transition">
+                        <button id="sampleCatBtn" class="px-2.5 py-1 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg border border-slate-200 flex items-center gap-1 transition font-medium">
                             🐱 고양이 샘플
                         </button>
                     </div>
@@ -149,10 +158,10 @@
 
             <!-- TAB 2: 웹캠 영역 -->
             <section id="sectionWebcam" class="hidden space-y-3">
-                <div class="bg-slate-900/90 rounded-2xl p-3 border border-slate-800 flex flex-col items-center justify-center min-h-[220px]">
-                    <div id="webcamContainer" class="relative rounded-xl overflow-hidden border border-slate-700 shadow-inner flex items-center justify-center min-w-[240px] min-h-[240px]">
+                <div class="bg-slate-50/90 rounded-2xl p-3 border border-slate-200 flex flex-col items-center justify-center min-h-[220px]">
+                    <div id="webcamContainer" class="relative rounded-xl overflow-hidden border border-slate-200 shadow-inner flex items-center justify-center min-w-[240px] min-h-[240px] bg-white">
                         <!-- 웹캠 화면 또는 대기 메시지 -->
-                        <div id="webcamPlaceholder" class="text-center p-4 text-slate-400 text-xs">
+                        <div id="webcamPlaceholder" class="text-center p-4 text-slate-500 text-xs">
                             <p class="mb-2 text-2xl">🎥</p>
                             <p>아래 버튼을 눌러 웹캠을 켜주세요</p>
                         </div>
@@ -163,24 +172,24 @@
                     <button id="startWebcamBtn" class="flex-1 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold rounded-xl shadow transition flex items-center justify-center gap-1.5">
                         ▶️ 웹캠 시작하기
                     </button>
-                    <button id="stopWebcamBtn" class="py-2.5 px-4 bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold rounded-xl border border-slate-700 transition hidden">
+                    <button id="stopWebcamBtn" class="py-2.5 px-4 bg-slate-200 hover:bg-slate-300 text-slate-700 text-xs font-semibold rounded-xl border border-slate-300 transition hidden">
                         ⏹️ 중지
                     </button>
                 </div>
             </section>
 
             <!-- AI 판별 결과 출력 영역 -->
-            <section id="resultSection" class="space-y-3 pt-2 border-t border-slate-800/80">
+            <section id="resultSection" class="space-y-3 pt-2 border-t border-slate-200">
                 <div class="flex items-center justify-between">
-                    <h3 class="text-xs font-bold text-indigo-300 uppercase tracking-wider flex items-center gap-1.5">
+                    <h3 class="text-xs font-bold text-indigo-600 uppercase tracking-wider flex items-center gap-1.5">
                         📊 AI 분석 결과
                     </h3>
-                    <span id="soundToggleBtn" class="cursor-pointer text-xs text-slate-400 hover:text-slate-200">🔊 소리 ON</span>
+                    <span id="soundToggleBtn" class="cursor-pointer text-xs text-slate-500 hover:text-slate-800">🔊 소리 ON</span>
                 </div>
 
                 <!-- 승자 판정 요약 박스 -->
-                <div id="resultCard" class="p-4 rounded-xl bg-slate-900/90 border border-slate-800 text-center flex flex-col items-center gap-1 min-h-[80px] justify-center">
-                    <p class="text-slate-400 text-xs">사진을 올리거나 웹캠을 켜면 AI 분석 결과가 표시됩니다.</p>
+                <div id="resultCard" class="p-4 rounded-xl bg-slate-50/90 border border-slate-200 text-center flex flex-col items-center gap-1 min-h-[80px] justify-center">
+                    <p class="text-slate-500 text-xs">사진을 올리거나 웹캠을 켜면 AI 분석 결과가 표시됩니다.</p>
                 </div>
 
                 <!-- 확률 게이지 바 (강아지 & 고양이) -->
@@ -188,10 +197,10 @@
                     <!-- 강아지 게이지 -->
                     <div class="space-y-1">
                         <div class="flex justify-between text-xs font-semibold">
-                            <span class="text-amber-400 flex items-center gap-1">🐶 강아지 (Dog)</span>
-                            <span id="dogPercent" class="text-amber-400 font-mono">0%</span>
+                            <span class="text-amber-600 flex items-center gap-1">🐶 강아지 (Dog)</span>
+                            <span id="dogPercent" class="text-amber-600 font-mono">0%</span>
                         </div>
-                        <div class="w-full h-3 bg-slate-900 rounded-full overflow-hidden p-0.5 border border-slate-800">
+                        <div class="w-full h-3 bg-slate-100 rounded-full overflow-hidden p-0.5 border border-slate-200">
                             <div id="dogBar" class="h-full bg-gradient-to-r from-amber-500 to-yellow-400 rounded-full transition-all duration-300 w-0"></div>
                         </div>
                     </div>
@@ -199,10 +208,10 @@
                     <!-- 고양이 게이지 -->
                     <div class="space-y-1">
                         <div class="flex justify-between text-xs font-semibold">
-                            <span class="text-purple-400 flex items-center gap-1">🐱 고양이 (Cat)</span>
-                            <span id="catPercent" class="text-purple-400 font-mono">0%</span>
+                            <span class="text-purple-600 flex items-center gap-1">🐱 고양이 (Cat)</span>
+                            <span id="catPercent" class="text-purple-600 font-mono">0%</span>
                         </div>
-                        <div class="w-full h-3 bg-slate-900 rounded-full overflow-hidden p-0.5 border border-slate-800">
+                        <div class="w-full h-3 bg-slate-100 rounded-full overflow-hidden p-0.5 border border-slate-200">
                             <div id="catBar" class="h-full bg-gradient-to-r from-purple-500 to-indigo-400 rounded-full transition-all duration-300 w-0"></div>
                         </div>
                     </div>
@@ -212,11 +221,14 @@
 
         <!-- Disqus 댓글 영역 -->
         <footer class="glass-card w-full rounded-2xl p-4 sm:p-5 text-sm space-y-3">
-            <h3 class="text-xs font-semibold text-slate-300 flex items-center gap-2">
+            <h3 class="text-xs font-semibold text-slate-700 flex items-center gap-2">
                 💬 AI 판별 소감 & 사용자 소통
             </h3>
-            <div id="disqus_thread" class="bg-slate-900/90 p-3 rounded-xl border border-slate-800 text-sm"></div>
-            <script>
+            <div id="disqus_thread" class="bg-slate-50/90 p-3 rounded-xl border border-slate-200 text-sm"></div>
+        </footer>
+    </div>
+
+    <script>
         // Teachable Machine 모델 URL 설정
         let MODEL_URL = "https://teachablemachine.withgoogle.com/models/3hCqKp5S9/";
 
@@ -308,7 +320,7 @@
                 isModelLoaded = true;
 
                 statusText.textContent = "AI 모델 연결 성공 (준비됨)";
-                statusDot.className = "w-2.5 h-2.5 rounded-full bg-emerald-400";
+                statusDot.className = "w-2.5 h-2.5 rounded-full bg-emerald-500";
             } catch (error) {
                 console.error("모델 로딩 실패:", error);
                 statusText.textContent = "모델 로딩 실패. URL을 확인하거나 직접 변경해보세요.";
@@ -375,26 +387,26 @@
             // 승자 판정 코멘트 생성
             if (dogProb > 60) {
                 resultCard.innerHTML = `
-                    <div class="text-amber-400 font-bold text-lg flex items-center gap-1.5">
+                    <div class="text-amber-600 font-bold text-lg flex items-center gap-1.5">
                         🐶 강아지 (${dogProb.toFixed(0)}%)
                     </div>
-                    <p class="text-xs text-slate-300">귀여운 멍멍이의 매력이 물씬 느껴지네요! 🐾</p>
+                    <p class="text-xs text-slate-600">귀여운 멍멍이의 매력이 물씬 느껴지네요! 🐾</p>
                 `;
                 playSound('dog');
             } else if (catProb > 60) {
                 resultCard.innerHTML = `
-                    <div class="text-purple-400 font-bold text-lg flex items-center gap-1.5">
+                    <div class="text-purple-600 font-bold text-lg flex items-center gap-1.5">
                         🐱 고양이 (${catProb.toFixed(0)}%)
                     </div>
-                    <p class="text-xs text-slate-300">도도하고 완벽한 야옹이의 모습입니다! 🐈</p>
+                    <p class="text-xs text-slate-600">도도하고 완벽한 야옹이의 모습입니다! 🐈</p>
                 `;
                 playSound('cat');
             } else {
                 resultCard.innerHTML = `
-                    <div class="text-slate-200 font-bold text-sm">
+                    <div class="text-slate-800 font-bold text-sm">
                         🤔 판별 불명확 (유사 확률)
                     </div>
-                    <p class="text-xs text-slate-400">강아지인지 고양이인지 조금 더 명확한 사진으로 시도해보세요!</p>
+                    <p class="text-xs text-slate-500">강아지인지 고양이인지 조금 더 명확한 사진으로 시도해보세요!</p>
                 `;
             }
         }
@@ -465,9 +477,9 @@
         // 탭 전환 제어
         tabUpload.addEventListener('click', () => {
             tabUpload.classList.add('tab-active');
-            tabUpload.classList.remove('text-slate-400');
+            tabUpload.classList.remove('text-slate-500');
             tabWebcam.classList.remove('tab-active');
-            tabWebcam.classList.add('text-slate-400');
+            tabWebcam.classList.add('text-slate-500');
 
             sectionUpload.classList.remove('hidden');
             sectionWebcam.classList.add('hidden');
@@ -476,9 +488,9 @@
 
         tabWebcam.addEventListener('click', () => {
             tabWebcam.classList.add('tab-active');
-            tabWebcam.classList.remove('text-slate-400');
+            tabWebcam.classList.remove('text-slate-500');
             tabUpload.classList.remove('tab-active');
-            tabUpload.classList.add('text-slate-400');
+            tabUpload.classList.add('text-slate-500');
 
             sectionWebcam.classList.remove('hidden');
             sectionUpload.classList.add('hidden');
@@ -527,7 +539,7 @@
                 startWebcamBtn.classList.remove('hidden');
                 stopWebcamBtn.classList.add('hidden');
                 webcamContainer.innerHTML = `
-                    <div id="webcamPlaceholder" class="text-center p-4 text-slate-400 text-xs">
+                    <div id="webcamPlaceholder" class="text-center p-4 text-slate-500 text-xs">
                         <p class="mb-2 text-2xl">🎥</p>
                         <p>아래 버튼을 눌러 웹캠을 켜주세요</p>
                     </div>
